@@ -21,13 +21,13 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
     if (get_global_id(0) == i){
       for (int j = 0; j < num_runs; j++){
         // pi/4 = sum([(-1^(n))(1/(2*n + 1))], 0, num_iterations*work_units) <= Pi formula
-        curr_iter = (i * num_runs + j);
+        int curr_iter = (i * num_runs + j);
 
         if (curr_iter < num_iterations){ // Handles the rounding on the integer for num runs
           if ((curr_iter) % 2){ // Even iteration
-            calc_buf[curr_iter] = 4.0 / (2.0 * (float)curr_iter + 1.0);
+            calc_buff[curr_iter] = 4.0 / (2.0 * (float)curr_iter + 1.0);
           } else { // Odd iteration
-            calc_buf[curr_iter] = -4.0 / (2.0 * (float)curr_iter + 1.0);
+            calc_buff[curr_iter] = -4.0 / (2.0 * (float)curr_iter + 1.0);
           }
         }
       }
