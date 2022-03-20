@@ -1,7 +1,7 @@
 __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global float* res_buf, int num_workers) {
 
 
-  gid = get_global_id(0);
+  int gid = (int)get_global_id(0);
 
   // Assign each worker their portion of the calculation
   for (int i = 0; i < num_workers; i++){
