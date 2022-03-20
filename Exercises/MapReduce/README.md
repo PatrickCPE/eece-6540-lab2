@@ -1,3 +1,6 @@
+# Lab 2
+## Heterogenous Computing - EECE.6540
+## Patrick Hoey
 
 
 # Setup
@@ -12,7 +15,7 @@ cp kafka.txt bin
 
 # Compiling and Running
 ```shell
-cd eece-6540-lab2/Exercises/MapReduce
+cd eece-6540-lab2/Exercises/MapReduce # It's not really map reduce, it's calculate pi :)
 aoc -march=emulator mykernel.cl -o bin/mykernel.aocx
 make
 cd bin
@@ -21,4 +24,5 @@ cd bin
 
 # References
 https://downloads.ti.com/mctools/esd/docs/opencl/execution/kernels-workgroups-workitems.html 
+https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_C.html
 
