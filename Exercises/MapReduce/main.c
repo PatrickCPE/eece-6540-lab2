@@ -102,7 +102,7 @@ int main()
     int num_workers = global_size;
     int num_iterations[1] = {2}; // In the summation this is effectively n assuming n starts at 0
     //float *calc = (float *) calloc((num_iterations * num_workers), sizeof(float));
-    float calc[160] = {0.0};
+    float calc[320] = {0.0};
     cl_mem calc_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY |
                                         CL_MEM_COPY_HOST_PTR, sizeof(calc), &calc, &ret);
     if(ret < 0) {
@@ -111,7 +111,7 @@ int main()
     };
 
     //Create a buffer to hold the final result only
-    float result[160] = {0};
+    float result[1] = {0};
     cl_mem res_buffer = clCreateBuffer(context, CL_MEM_WRITE_ONLY |
                                         CL_MEM_COPY_HOST_PTR, sizeof(result), &result, &ret);
     if(ret < 0) {
@@ -160,12 +160,12 @@ int main()
 
     /* free resources */
 
-    clReleaseMemObject(calc_buffer);
-    clReleaseMemObject(res_buffer);
-    clReleaseCommandQueue(command_queue);
-    clReleaseKernel(kernel);
-    clReleaseProgram(program);
-    clReleaseContext(context);
+    //clReleaseMemObject(calc_buffer);
+    //clReleaseMemObject(res_buffer);
+    //clReleaseCommandQueue(command_queue);
+    //clReleaseKernel(kernel);
+    //clReleaseProgram(program);
+    //clReleaseContext(context);
 
     return 0;
 }
