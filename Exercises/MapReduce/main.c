@@ -153,14 +153,13 @@ int main()
 
 
     /* free resources */
-    clReleaseMemObject(calc_buffer);
-    clReleaseMemObject(res_buffer);
-    clReleaseCommandQueue(command_queue);
-    clReleaseKernel(kernel);
-    clReleaseProgram(program);
-    clReleaseContext(context);
 
-    free(calc);
+    /* clReleaseMemObject(calc_buffer); */
+    /* clReleaseMemObject(res_buffer); */
+    /* clReleaseCommandQueue(command_queue); */
+    /* clReleaseKernel(kernel); */
+    /* clReleaseProgram(program); */
+    /* clReleaseContext(context); */
 
     return 0;
 }
