@@ -149,17 +149,17 @@ int main()
        exit(1);
     }
 
-    float fin_result = result;
-    printf("Final value of pi: %f\n", fin_result);
+    printf("Final value of pi: %f\n", result);
 
 
     /* free resources */
-    clReleaseMemObject(calc_buffer);
-    clReleaseMemObject(res_buffer);
-    clReleaseCommandQueue(command_queue);
-    clReleaseKernel(kernel);
-    clReleaseProgram(program);
-    clReleaseContext(context);
+
+    //clReleaseMemObject(calc_buffer);
+    //clReleaseMemObject(res_buffer);
+    //clReleaseCommandQueue(command_queue);
+    //clReleaseKernel(kernel);
+    //clReleaseProgram(program);
+    //clReleaseContext(context);
 
     return 0;
 }
