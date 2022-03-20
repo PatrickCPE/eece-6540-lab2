@@ -27,7 +27,7 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
           if ((curr_iter) % 2){ // Even iteration
             calc_buff[curr_iter] = 4.0 / (2.0 * (float)curr_iter + 1.0);
           } else { // Odd iteration
-            calc_buff[curr_iter] = -4.0 / (2.0 * (float)curr_iter + 1.0);
+            calc_buff[curr_iter] = 4.0 / (2.0 * (float)curr_iter + 1.0);
           }
         }
       }
