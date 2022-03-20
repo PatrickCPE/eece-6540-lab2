@@ -9,13 +9,13 @@ ssh devcloud
 devcloud_login # 1 then 1
 tools_setup # 5
 # Assumes you have it cloned
-cd eece-6540-lab2/Exercises/CalcPi
+cd eece-6540-lab2/Exercises/MapReduce
 mkdir bin # Only need to run once
 ```
 
 # Compiling and Running
 ```shell
-cd eece-6540-lab2/Exercises/CalcPi
+cd eece-6540-lab2/Exercises/MapReduce # It's not really map reduce, it's calculate pi :)
 aoc -march=emulator mykernel.cl -o bin/mykernel.aocx
 make
 cd bin
