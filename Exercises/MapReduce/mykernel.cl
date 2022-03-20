@@ -31,6 +31,6 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
   barrier(CLK_GLOBAL_MEM_FENCE);
 
   if(gid == 0){
-    *res_buf = 13.0;
+    *res_buf = (float)get_global_size(0);
   }
 }
