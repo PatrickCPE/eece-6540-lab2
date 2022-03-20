@@ -111,9 +111,9 @@ int main()
     };
 
     //Create a buffer to hold the final result only
-    float result = 0;
-    cl_mem res_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY |
-                                        CL_MEM_COPY_HOST_PTR, sizeof(float), &result, &ret);
+    float result[160] = {0};
+    cl_mem res_buffer = clCreateBuffer(context, CL_MEM_WRITE_ONLY |
+                                        CL_MEM_COPY_HOST_PTR, sizeof(result), &result, &ret);
     if(ret < 0) {
       perror("Couldn't create a buffer");
       exit(1);
