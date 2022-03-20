@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <unistd.h>
 
 #ifdef AOCL
 #include "CL/opencl.h"
@@ -150,6 +151,7 @@ int main()
     }
 
     printf("Final value of pi: %f\n", result);
+    usleep(1000);
 
 
     /* free resources */

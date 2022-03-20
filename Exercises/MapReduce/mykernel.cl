@@ -22,4 +22,6 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
       *res_buf += calc_buff[x];
     }
   }
+
+  barrier(CLK_GLOBAL_MEM_FENCE);
 }
