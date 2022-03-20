@@ -99,7 +99,8 @@ int main()
     }
 
     //Create buffer to hold the intermediate results
-    float calc[128] = {0.0};
+    int num_iterations = 128; // In the summation this is effectively n assuming n starts at 0
+    float *calc = (float *) calloc(num_iterations, sizeof(float));
     cl_mem calc_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY |
                                         CL_MEM_COPY_HOST_PTR, sizeof(calc), &calc, &ret);
     if(ret < 0) {
@@ -121,7 +122,6 @@ int main()
     /* Create kernel argument */
     ret = 0;
     int num_workers = global_size;
-    int num_iterations = 128; // In the summation this is effectively n assuming n starts at 0
     ret = clSetKernelArg(kernel, 0, sizeof(int), (void *)&num_iterations); // int num_iterations
     ret |= clSetKernelArg(kernel, 1, sizeof(cl_mem), (void *)&calc_buffer); // float* calc_buff
     ret |= clSetKernelArg(kernel, 2, sizeof(cl_mem), (void *)&res_buffer); // float* res_buff

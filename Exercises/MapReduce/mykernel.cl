@@ -4,10 +4,10 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
   int gid = (int)get_global_id(0);
 
   // Assign each worker their portion of the calculation
-  for (int i = 0; i < num_workers; i++){
+  for (int i = 0; i < num_iterations; i++){
     // pi/4 = sum([(-1^(n))(1/(2*n + 1))], 0, num_iterations*work_units) <= Pi formula
 
-    if(gid == i){
+    if((gid % num_workers) == i){
       if ((i) % 2){ // Negative iteration
         calc_buff[i] = -4.0 / (2.0 * (float)i + 1.0);
       } else { // Positive iteration
@@ -15,8 +15,6 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
       }
     }
   }
-
-
 
   //And when the results have been gathered use a single worker to produce the final result
   barrier(CLK_GLOBAL_MEM_FENCE);
