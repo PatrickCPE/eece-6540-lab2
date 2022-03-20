@@ -101,7 +101,8 @@ int main()
     //Create buffer to hold the intermediate results
     int num_workers = global_size;
     int num_iterations = 8; // In the summation this is effectively n assuming n starts at 0
-    float *calc = (float *) calloc((num_iterations * num_workers), sizeof(float));
+    //float *calc = (float *) calloc((num_iterations * num_workers), sizeof(float));
+    float calc[80*8] = {0.0};
     cl_mem calc_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY |
                                         CL_MEM_COPY_HOST_PTR, sizeof(calc), &calc, &ret);
     if(ret < 0) {
