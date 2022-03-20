@@ -100,7 +100,7 @@ int main()
 
     //Create buffer to hold the intermediate results
     int num_workers = global_size;
-    int num_iterations = 2; // In the summation this is effectively n assuming n starts at 0
+    int num_iterations[1] = 2; // In the summation this is effectively n assuming n starts at 0
     //float *calc = (float *) calloc((num_iterations * num_workers), sizeof(float));
     float calc[160] = {0.0};
     cl_mem calc_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY |
@@ -123,10 +123,10 @@ int main()
 
     /* Create kernel argument */
     ret = 0;
-    ret = clSetKernelArg(kernel, 0, sizeof(int), (void *)&num_iterations); // int num_iterations
+    ret = clSetKernelArg(kernel, 0, sizeof(cl_int), (void *)&num_iterations); // int num_iterations
     ret |= clSetKernelArg(kernel, 1, sizeof(cl_mem), (void *)&calc_buffer); // float* calc_buff
     ret |= clSetKernelArg(kernel, 2, sizeof(cl_mem), (void *)&res_buffer); // float* res_buff
-    ret |= clSetKernelArg(kernel, 3, sizeof(num_workers), (void *)&num_workers); // int num_workers
+    ret |= clSetKernelArg(kernel, 3, sizeof(cl_int), (void *)&num_workers); // int num_workers
     if(ret < 0) {
        printf("Couldn't set a kernel argument");
        exit(1);
@@ -139,6 +139,12 @@ int main()
        perror("Couldn't enqueue the kernel");
        printf("Error code: %d\n", ret);
        exit(1);
+    }
+
+    // Wait for processing to complete
+    ret = clFinish(command_queue);
+    if (ret < 0){
+      printf("Error waiting for clFinish\n");
     }
 
     /* Read and print the result */
