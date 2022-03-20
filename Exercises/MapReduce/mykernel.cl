@@ -8,14 +8,9 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
 
     // Each worker will do two sets of the math for 2 digits of precision
     if(get_global_id(0) == i){
-        if ((i) % 2){ // Negative iteration
-          calc_buff[i * 2] = -4.0 / (2.0 * (float)(i * 2) + 1.0);
-          calc_buff[i * 2 + 1] = 4.0 / (2.0 * (float)(i * 2 + 1) + 1.0);
-        } else { // Positive iteration
-          calc_buff[i * 2] = 4.0 / (2.0 * (float)(i * 2)i + 1.0);
-          calc_buff[i * 2 + 1] = -4.0 / (2.0 * (float)(i * 2 + 1) + 1.0);
-        }
-      }
+        calc_buff[i * 2] = -4.0 / (2.0 * (float)(i * 2) + 1.0);
+        calc_buff[i * 2 + 1] = 4.0 / (2.0 * (float)(i * 2 + 1) + 1.0);
+    }
   }
 
   //And when the results have been gathered use a single worker to produce the final result
