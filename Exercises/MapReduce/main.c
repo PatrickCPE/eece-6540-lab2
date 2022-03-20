@@ -2,12 +2,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-#ifdef __APPLE__
-#include <OpenCL/opencl.h>
-#else
-#include <CL/cl.h>
-#endif
-
 #ifdef AOCL
 #include "CL/opencl.h"
 #include "AOCLUtils/aocl_utils.h"
@@ -51,18 +45,6 @@ int main()
     size_t text_size;
     int chars_per_item;
 
-#ifdef __APPLE__
-    /* Get Platform and Device Info */
-    clGetPlatformIDs(1, NULL, &platformCount);
-    platforms = (cl_platform_id*) malloc(sizeof(cl_platform_id) * platformCount);
-    clGetPlatformIDs(platformCount, platforms, NULL);
-    // we only use platform 0, even if there are more plantforms
-    // Query the available OpenCL device.
-    ret = clGetDeviceIDs(platforms[0], CL_DEVICE_TYPE_DEFAULT, 1, &device_id, &ret_num_devices);
-    ret = clGetDeviceInfo(device_id, CL_DEVICE_NAME, DEVICE_NAME_LEN, dev_name, NULL);
-    printf("device name= %s\n", dev_name);
-#else
-
 #ifdef AOCL  /* Altera FPGA */
     // get all platforms
     clGetPlatformIDs(0, NULL, &platformCount);
@@ -83,16 +65,11 @@ int main()
 #error "unknown OpenCL SDK environment"
 #endif
 
-#endif
 
     /* Determine global size and local size */
     clGetDeviceInfo(device_id, CL_DEVICE_MAX_COMPUTE_UNITS,
       sizeof(num_comp_units), &num_comp_units, NULL);
     printf("num_comp_units=%u\n", num_comp_units);
-#ifdef __APPLE__
-    clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_GROUP_SIZE,
-              sizeof(local_size), &local_size, NULL);
-#endif
 #ifdef AOCL  /* local size reported Altera FPGA is incorrect */
     local_size = 16;
 #endif
