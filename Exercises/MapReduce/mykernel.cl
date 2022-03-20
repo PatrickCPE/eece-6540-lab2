@@ -11,11 +11,11 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
         calc_buff[i * 2] = 4.0 / (2.0 * (float)(i * 2) + 1.0);
         calc_buff[i * 2 + 1] = -4.0 / (2.0 * (float)(i * 2 + 1) + 1.0);
     }
-    if(get_global_id(0) % 5 == 0){
-      printf("%d done\n", (int)get_global_id(i));
-    }
   }
 
+  if(get_global_id(0) % 5 == 0){
+    printf("%d done\n", (int)get_global_id(i));
+  }
   //And when the results have been gathered use a single worker to produce the final result
   barrier(CLK_GLOBAL_MEM_FENCE);
 
