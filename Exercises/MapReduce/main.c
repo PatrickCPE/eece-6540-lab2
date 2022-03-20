@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <unistd.h>
 
 #ifdef AOCL
 #include "CL/opencl.h"
@@ -102,8 +101,8 @@ int main()
     //Create buffer to hold the intermediate results
     int num_workers = global_size;
     int num_iterations = 2; // In the summation this is effectively n assuming n starts at 0
-    float *calc = (float *) calloc((num_iterations * num_workers), sizeof(float));
-    //float calc[160] = {0.0};
+    //float *calc = (float *) calloc((num_iterations * num_workers), sizeof(float));
+    float calc[160] = {0.0};
     cl_mem calc_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY |
                                         CL_MEM_COPY_HOST_PTR, sizeof(calc), &calc, &ret);
     if(ret < 0) {
@@ -141,8 +140,6 @@ int main()
        printf("Error code: %d\n", ret);
        exit(1);
     }
-
-    usleep(1000);
 
     /* Read and print the result */
     ret = clEnqueueReadBuffer(command_queue, res_buffer, CL_TRUE, 0,
