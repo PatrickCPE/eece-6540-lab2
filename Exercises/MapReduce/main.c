@@ -125,6 +125,7 @@ int main()
     ret = clSetKernelArg(kernel, 0, sizeof(int), (void *)&num_iterations); // int num_iterations
     ret |= clSetKernelArg(kernel, 1, sizeof(cl_mem), (void *)&calc_buffer); // float* calc_buff
     ret |= clSetKernelArg(kernel, 2, sizeof(cl_mem), (void *)&res_buffer); // float* res_buff
+    ret |= clSetKernelArg(kernel, 3, sizeof(num_workers), (void *)&num_workers); // int num_workers
     if(ret < 0) {
        printf("Couldn't set a kernel argument");
        exit(1);
