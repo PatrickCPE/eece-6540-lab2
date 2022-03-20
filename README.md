@@ -3,14 +3,13 @@
 ## Patrick Hoey
 
 
-# Setup
+# Setup on Intel Devcloud
 ```shell
 ssh devcloud
 devcloud_login # 1 then 1
 tools_setup # 5
 cd eece-6540-lab2/Exercises/MapReduce
 mkdir bin
-cp kafka.txt bin
 ```
 
 # Compiling and Running
