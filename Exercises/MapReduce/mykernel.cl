@@ -8,7 +8,7 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
 
     // Each worker will do two sets of the math for 2 digits of precision
     if(get_group_id(0) == 0){
-      int curr_index = ((int)get_local_id(0) + i * 10);
+      int curr_index = ((int)get_local_id(0) + i * 16);
       if (curr_index % 2){
         calc_buff[curr_index] = -4.0 / (2.0 * (float)(curr_index) + 1.0);
         printf("local thread:%d Writing to index:%d\n", (int)get_local_id(0), curr_index+1);
