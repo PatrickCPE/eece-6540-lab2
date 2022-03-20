@@ -142,6 +142,8 @@ int main()
        exit(1);
     }
 
+    usleep(1000);
+
     /* Read and print the result */
     ret = clEnqueueReadBuffer(command_queue, res_buffer, CL_TRUE, 0,
        sizeof(result), &result, 0, NULL, NULL);
@@ -151,7 +153,6 @@ int main()
     }
 
     printf("Final value of pi: %f\n", result);
-    usleep(1000);
 
 
     /* free resources */
