@@ -22,7 +22,7 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
     for (int x = 0; x < num_workers * 2; x++){
       *res_buf += calc_buff[x];
     }
+    printf("done\n");
   }
-  printf("done\n");
   barrier(CLK_GLOBAL_MEM_FENCE);
 }
