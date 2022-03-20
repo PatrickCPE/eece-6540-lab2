@@ -140,14 +140,14 @@ int main()
     }
 
     /* Read and print the result */
-    ret = clEnqueueReadBuffer(command_queue, result_buffer, CL_TRUE, 0,
+    ret = clEnqueueReadBuffer(command_queue, res_buffer, CL_TRUE, 0,
        sizeof(result), &result, 0, NULL, NULL);
     if(ret < 0) {
        perror("Couldn't read the buffer");
        exit(1);
     }
 
-    printf("Number of occurrences of 'from': %f\n", result[2]);
+    printf("Final value of pi: %f\n", result);
 
 
     /* free resources */
