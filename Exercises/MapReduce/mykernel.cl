@@ -1,5 +1,6 @@
 __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global float* res_buf, int num_workers) {
 
+  printf("global id:%d local_id:%d group:%d num_groups:%d \n", (int)get_global_id(0), (int)get_local_id(0), (int)get_group_id(0), (int)get_num_groups(0));
 
   // Assign each worker their portion of the calculation
   for (int i = 0; i < 10; i++){
@@ -20,7 +21,6 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
 
 
 if(get_global_id(0) % 5 == 0){
-  //printf("global id:%d local_id:%d group:%d num_groups:%d \n", (int)get_global_id(0), (int)get_local_id(0), (int)get_group_id(0), (int)get_num_groups(0));
  }
 //And when the results have been gathered use a single worker to produce the final result
 barrier(CLK_GLOBAL_MEM_FENCE);
