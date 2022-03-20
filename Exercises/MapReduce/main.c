@@ -155,7 +155,7 @@ int main()
        exit(1);
     }
 
-    printf("Final value of pi: %f\n", result);
+    printf("Final value of pi: %f\n", result[0]);
 
 
     /* free resources */

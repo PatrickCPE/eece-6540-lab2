@@ -19,7 +19,7 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
   barrier(CLK_GLOBAL_MEM_FENCE);
 
   int gid = (int)get_global_id(0);
-  if((gid == 0)){
+  if(gid == 0){
     for (int x = 0; x < num_iterations; x++){
       *res_buf += calc_buff[x];
     }
