@@ -6,6 +6,7 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
   /* Perform global reduction */
   int gid = get_global_id(0);
   int used_workers = 0;
+  int num_runs = 0;
   int global_size = (int)get_global_size(0);
   //Determine how many workers we have compared to desired num of iterations
   if (num_iterations < global_size){
