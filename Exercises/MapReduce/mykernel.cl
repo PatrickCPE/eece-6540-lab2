@@ -9,7 +9,7 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
     if(get_group_id(0) == 0){
       for (int j = 0; j < 5; j++){
         int curr_index = i * 16 + j;
-        printf("Writing to index:%d", current_index);
+        printf("Writing to index:%d", curr_index);
         calc_buff[curr_index] = 4.0 / (2.0 * (float)(curr_index) + 1.0);
         calc_buff[curr_index+ 1] = -4.0 / (2.0 * (float)(curr_index + 1) + 1.0);
       }
