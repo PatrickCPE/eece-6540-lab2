@@ -1,61 +1,36 @@
-__kernel void string_search(char16 pattern, __global char* text,
-     int chars_per_item, __local int* local_result, 
-     __global int* global_result) {
+__kernel void calc_pi(int num_iterations, __global float* calc_buff, __global float* res_buf) {
 
-   char16 text_vector, check_vector;
+  /* Make sure local processing has completed */
+  //barrier(CLK_GLOBAL_MEM_FENCE);
 
-   /* initialize local data */
-   local_result[0] = 0;
-   local_result[1] = 0;
-   local_result[2] = 0;
-   local_result[3] = 0;
+  /* Perform global reduction */
+  int gid = get_global_id(0);
+  for (int i = 0; i < num_iterations; i++){
+    int curr_iter = gid + i;
 
-   /* Make sure previous processing has completed */
-   barrier(CLK_LOCAL_MEM_FENCE);
+    // pi/4 = sum([(-1^(n))(1/(2*n + 1))], 0, num_iterations*work_units) <= Pi formula
+    if (curr_iter % 2){ // Even iteration
+      //res_buf[curr_iter] = 4.0 / (2.0 * (float)curr_iter + 1.0);
+    } else { // Odd iteration
+      //res_buf[curr_iter] = -4.0 / (2.0 * (float)curr_iter + 1.0);
+    }
+  }
 
-   int item_offset = get_global_id(0) * chars_per_item;
+  //Ensure all work units have performed there local calculation of their index
+  barrier(CLK_GLOBAL_MEM_FENCE);
 
-   /* Iterate through characters in text */
-   for(int i=item_offset; i<item_offset + chars_per_item; i++) {
+  //Use 4 workers to combine results
+  size_t glob_size = get_global_size(0);
+  if(gid == 0){
+  } else if (gid == 1) {
+  } else if (gid == 2) {
+  } else if (gid == 3) {
+  }
 
-      /* load global text into private buffer */
-      /* vloadn(offset, p) Read vectors from a pointer to memory. 
-         Return sizeof (gentypen) bytes of data read from location 
-         (p + (offset * n)). n is the size of the generic type */
-      text_vector = vload16(0, text + i);
+  //And when the results have been gathered use a single worker to produce the final result
+  barrier(CLK_GLOBAL_MEM_FENCE);
 
-      /* compare text vector and pattern */
-      check_vector = text_vector == pattern;
-
-      /* Each element in a vector can be accessed by .sX 
-       with X being 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F */
-      /* all() identifies whether every most significant bit (MSB) 
-       in every component of a vector is set to 1. */
-      /* Check for 'that' */
-      if(all(check_vector.s0123))
-         atomic_inc(local_result);
-
-      /* Check for 'with' */
-      if(all(check_vector.s4567))
-         atomic_inc(local_result + 1);
-
-      /* Check for 'have' */
-      if(all(check_vector.s89AB))
-         atomic_inc(local_result + 2);
-
-      /* Check for 'from' */
-      if(all(check_vector.sCDEF))
-         atomic_inc(local_result + 3);
-   }
-
-   /* Make sure local processing has completed */
-   barrier(CLK_GLOBAL_MEM_FENCE);
-
-   /* Perform global reduction */
-   if(get_local_id(0) == 0) {
-      atomic_add(global_result, local_result[0]);
-      atomic_add(global_result + 1, local_result[1]);
-      atomic_add(global_result + 2, local_result[2]);
-      atomic_add(global_result + 3, local_result[3]);
-   }
+  if(gid == 0){
+    *res_buf = 13.0;
+  }
 }

@@ -18,3 +18,7 @@ make
 cd bin
 ./main
 ```
+
+# References
+https://downloads.ti.com/mctools/esd/docs/opencl/execution/kernels-workgroups-workitems.html 
+
