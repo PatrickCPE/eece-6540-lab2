@@ -11,10 +11,10 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
       int curr_index = ((int)get_local_id(0) + i * 16) - 1;
       if (curr_index % 2){
         calc_buff[curr_index] = -4.0 / (2.0 * (float)(curr_index) + 1.0);
-        printf("local thread:%d index:%d val:%d \n", (int)get_local_id(0), curr_index+1, calc_buff[curr_index]);
+        printf("local thread:%d index:%d val:%f \n", (int)get_local_id(0), curr_index+1, calc_buff[curr_index]);
       } else {
         calc_buff[curr_index] = 4.0 / (2.0 * (float)(curr_index) + 1.0);
-        printf("local thread:%d index:%d val:%d \n", (int)get_local_id(0), curr_index+1, calc_buff[curr_index]);
+        printf("local thread:%d index:%d val:%f \n", (int)get_local_id(0), curr_index+1, calc_buff[curr_index]);
       }
     }
   }
