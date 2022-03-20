@@ -9,6 +9,7 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
     if(get_group_id(0) == 0){
       for (int j = 0; j < 5; j++){
         int curr_index = i * 16 + j;
+        printf("Writing to index:%d", current_index);
         calc_buff[curr_index] = 4.0 / (2.0 * (float)(curr_index) + 1.0);
         calc_buff[curr_index+ 1] = -4.0 / (2.0 * (float)(curr_index + 1) + 1.0);
       }
@@ -16,7 +17,7 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
   }
 
   if(get_global_id(0) % 5 == 0){
-    printf("global id:%d local_id:%d group:%d num_groups:%d \n", (int)get_global_id(0), (int)get_local_id(0), (int)get_group_id(0), (int)get_num_groups(0));
+    //printf("global id:%d local_id:%d group:%d num_groups:%d \n", (int)get_global_id(0), (int)get_local_id(0), (int)get_group_id(0), (int)get_num_groups(0));
   }
   //And when the results have been gathered use a single worker to produce the final result
   barrier(CLK_GLOBAL_MEM_FENCE);
