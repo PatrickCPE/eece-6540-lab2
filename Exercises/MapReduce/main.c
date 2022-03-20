@@ -153,14 +153,14 @@ int main()
 
 
     /* free resources */
-    free(calc);
-
     clReleaseMemObject(calc_buffer);
     clReleaseMemObject(res_buffer);
     clReleaseCommandQueue(command_queue);
     clReleaseKernel(kernel);
     clReleaseProgram(program);
     clReleaseContext(context);
+
+    free(calc);
 
     return 0;
 }
