@@ -10,20 +10,18 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
     if(get_group_id(0) == 0){
       int curr_index = ((int)get_local_id(0) + i * 16) - 1;
       if (curr_index % 2){
-        calc_buff[curr_index] = -4.0 / (2.0 * (float)(curr_index) + 1.0);
+        calc_buff[curr_index] = -4.0 / ((2.0 * (float)(curr_index)) + 1.0);
         printf("local thread:%d index:%d val:%f \n", (int)get_local_id(0), curr_index+1, calc_buff[curr_index]);
       } else {
-        calc_buff[curr_index] = 4.0 / (2.0 * (float)(curr_index) + 1.0);
+        calc_buff[curr_index] = 4.0 / ((2.0 * (float)(curr_index)) + 1.0);
         printf("local thread:%d index:%d val:%f \n", (int)get_local_id(0), curr_index+1, calc_buff[curr_index]);
       }
     }
   }
 
 
-if(get_global_id(0) % 5 == 0){
- }
-//And when the results have been gathered use a single worker to produce the final result
-barrier(CLK_GLOBAL_MEM_FENCE);
+//gather results into final answer
+barrier(CLK_LOCAL_MEM_FENCE);
 
 int gid = (int)get_global_id(0);
 if(gid == 0){
