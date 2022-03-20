@@ -9,9 +9,9 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
 
     if(gid == i){
       if ((i) % 2){ // Negative iteration
-        calc_buff[i] = -4.0 / (2.0 * (float)curr_iter + 1.0);
+        calc_buff[i] = -4.0 / (2.0 * (float)i + 1.0);
       } else { // Positive iteration
-        calc_buff[i] = 4.0 / (2.0 * (float)curr_iter + 1.0);
+        calc_buff[i] = 4.0 / (2.0 * (float)i + 1.0);
       }
     }
   }
