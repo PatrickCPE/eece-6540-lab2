@@ -108,7 +108,7 @@ int main()
     };
 
     //Create a buffer to hold the final result only
-    float results = 0;
+    float result = 0;
     cl_mem res_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY |
                                         CL_MEM_COPY_HOST_PTR, sizeof(float), &result, &ret);
     if(ret < 0) {
@@ -122,9 +122,9 @@ int main()
     ret = 0;
     int num_workers = global_size;
     int num_iterations = 128; // In the summation this is effectively n assuming n starts at 0
-    ret = clSetKernelArg(kernel, 0, sizeof(int), num_iterations); // int num_iterations
-    ret |= clSetKernelArg(kernel, 1, sizeof(cl_mem), num_workers); // float* calc_buff
-    ret |= clSetKernelArg(kernel, 2, sizeof(cl_mem), &calc_buffer); // float* res_buff
+    ret = clSetKernelArg(kernel, 0, sizeof(int), (void *)&num_iterations); // int num_iterations
+    ret |= clSetKernelArg(kernel, 1, sizeof(cl_mem), (void *)&calc_buffer); // float* calc_buff
+    ret |= clSetKernelArg(kernel, 2, sizeof(cl_mem), (void *)&res_buffer); // float* res_buff
     if(ret < 0) {
        printf("Couldn't set a kernel argument");
        exit(1);
@@ -151,8 +151,6 @@ int main()
 
 
     /* free resources */
-    free(text);
-
     clReleaseMemObject(calc_buffer);
     clReleaseMemObject(result_buffer);
     clReleaseCommandQueue(command_queue);
