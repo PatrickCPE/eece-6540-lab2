@@ -10,6 +10,7 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
     if(get_global_id(0) == i){
         calc_buff[i * 2] = 4.0 / (2.0 * (float)(i * 2) + 1.0);
         calc_buff[i * 2 + 1] = -4.0 / (2.0 * (float)(i * 2 + 1) + 1.0);
+        printf("Done this part\n");
     }
   }
 
@@ -22,6 +23,6 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
       *res_buf += calc_buff[x];
     }
   }
-
+  printf("done\n");
   barrier(CLK_GLOBAL_MEM_FENCE);
 }
