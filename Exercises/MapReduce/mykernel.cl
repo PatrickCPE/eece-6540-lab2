@@ -25,8 +25,8 @@ barrier(CLK_LOCAL_MEM_FENCE);
 
 int gid = (int)get_global_id(0);
 if(gid == 0){
-  for (int x = 0; x < 320; x++){
-    res_buf[0] += calc_buff[x];
+  for (int x = 320; x > 0; x++){
+    res_buf[0] += calc_buff[x-1];
   }
   printf("done\n");
  }
