@@ -32,6 +32,7 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
         }
       }
     }
+  }
 
 
 
