@@ -24,9 +24,9 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
         int curr_iter = (i * num_runs + j);
 
         if (curr_iter < num_iterations){ // Handles the rounding on the integer for num runs
-          if ((curr_iter) % 2){ // Even iteration
-            calc_buff[curr_iter] = 4.0 / (2.0 * (float)curr_iter + 1.0);
-          } else { // Odd iteration
+          if ((curr_iter) % 2){ // Negative iteration
+            calc_buff[curr_iter] = -4.0 / (2.0 * (float)curr_iter + 1.0);
+          } else { // Positive iteration
             calc_buff[curr_iter] = 4.0 / (2.0 * (float)curr_iter + 1.0);
           }
         }
@@ -42,6 +42,6 @@ __kernel void calc_pi(int num_iterations, __global float* calc_buff, __global fl
   if(gid == 0){
 
     //*res_buf = (float)get_global_size(0);
-    *res_buf = calc_buff[0];
+    *res_buf = calc_buff[1];
   }
 }
