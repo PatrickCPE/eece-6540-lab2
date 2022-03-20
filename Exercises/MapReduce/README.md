@@ -8,8 +8,9 @@
 ssh devcloud
 devcloud_login # 1 then 1
 tools_setup # 5
+# Assumes you have it cloned
 cd eece-6540-lab2/Exercises/MapReduce
-mkdir bin
+mkdir bin # Only need to run once
 ```
 
 # Compiling and Running
